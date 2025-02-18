@@ -12,3 +12,6 @@ This is a demo of how to extend our accordion component with liquid variables.
 
 ## 4-liquid-JSON
 This is a demo of how to extend our accordion component with JSON parsing functionality to add further content to the accordion.
+
+## 5-adding-bootstrap
+This is a demo of how to implement a Bootstrap accordion component that is compatible with Power Pages.

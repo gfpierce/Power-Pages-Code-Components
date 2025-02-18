@@ -1,0 +1,1 @@
+This is a demo of how to implement a Bootstrap accordion component that is compatible with Power Pages.
