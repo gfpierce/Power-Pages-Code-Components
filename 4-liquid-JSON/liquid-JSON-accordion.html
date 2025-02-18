@@ -1,0 +1,59 @@
+{% manifest %}
+{
+"type": "Functional",
+"displayName": "liquid-JSON-accordion",
+"description": "This component displays data in an individual accordion element",
+"tables": [""],
+"params": [
+    {
+        "id": "accordionItemHeading",
+        "displayName": "Accordion Item Heading",
+        "description": "Heading for this individual accordion item"
+    },
+    {
+        "id": "accordionItemBody",
+        "displayName": "Accordion Item Body",
+        "description": "Body text of this individual accordion item"
+    },
+    {
+        "id": "accordionItemId",
+        "displayName": "Accordion Item ID",
+        "description": "Identifier for this individual accordion item"
+    },
+    {
+        "id": "accordionItemListJSON",
+        "displayName": "Accordion Item List JSON",
+        "description": "List of items to display in the accordion"
+    }
+]
+}
+{% endmanifest %}
+<link rel="stylesheet" href="~/styles.css">
+<div class="accordion" id="{{ accordionItemId }}">
+    <button class="accordion-toggle" onclick="toggleAccordion()" id="{{ accordionItemId }}-button">
+        {{ accordionItemHeading}}
+    </button>
+    <div class="accordion-content" id="{{ accordionItemId }}-content">
+        {{ accordionItemBody }}
+        <ul id="{{ accordionItemId }}-list"></ul>
+    </div>
+</div>
+
+<script>
+    document.getElementById("{{ accordionItemId }}-button").addEventListener("click", function() {
+        var accordionContent = document.getElementById("{{ accordionItemId }}-content");
+        if (accordionContent.classList.contains("active")) {
+            accordionContent.classList.remove("active");
+        } else {
+            accordionContent.classList.add("active");
+        }
+    });
+
+    document.getElementById("{{ accordionItemId }}-list").innerHTML = (() => {
+        let listJSONObject = JSON.parse('{{ accordionItemListJSON }}');
+        let listItems = listJSONObject.listItems.map((item) => {
+            return `<li>${item.itemText}</li>`;
+        }).join("");
+        return listItems;
+    })();
+</script>

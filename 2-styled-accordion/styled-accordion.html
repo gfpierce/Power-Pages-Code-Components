@@ -1,0 +1,29 @@
+{% manifest %}
+{
+"type": "Functional",
+"displayName": "styled-accordion",
+"description": "This component displays data in an individual accordion element",
+"tables": [""],
+"params": []
+}
+{% endmanifest %}
+<link rel="stylesheet" href="~/styles.css">
+<div class="accordion">
+    <button class="accordion-toggle" onclick="toggleAccordion()" id="accordion-1-button">
+        Show more 1
+    </button>
+    <div class="accordion-content" id="accordion-1-content">
+        Content goes here
+    </div>
+</div>
+
+<script>
+    function toggleAccordion() {
+        var accordionContent = document.getElementById("accordion-1-content");
+        if (accordionContent.classList.contains("active")) {
+            accordionContent.classList.remove("active");
+        } else {
+            accordionContent.classList.add("active");
+        }
+    }
+</script>
