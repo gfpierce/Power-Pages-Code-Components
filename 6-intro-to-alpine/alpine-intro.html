@@ -1,0 +1,13 @@
+<head>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
+<div x-data="{count: 0}">
+  <h1>{{ liquidVar }}</h1>
+  <button x-on:click="count++">Increment</button>
+  <button x-on:click="count--">Decrement</button>
+  <p>
+    Count: <span x-text="count"></span>
+    </p>
+  <p>Doubled: <span x-text="count * 2"></span></p>
+</div>
