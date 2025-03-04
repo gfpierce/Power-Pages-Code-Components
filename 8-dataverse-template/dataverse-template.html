@@ -1,0 +1,65 @@
+
+
+{% fetchxml accordionItemsQuery %}
+<fetch mapping="logical">
+    <entity name="ktcs_accordionitem">
+        <attribute name="ktcs_accordionitembody"/>
+        <attribute name="ktcs_accordionitemheading"/>
+        <attribute name="ktcs_accordionitemsortorder"/>
+        <attribute name="ktcs_accordionitemid"/>
+        <order attribute="ktcs_accordionitemsortorder" />
+    </entity>
+</fetch>
+{% endfetchxml %}
+{% assign accItemsCount = count | times: 1 %}
+
+<link rel="stylesheet" href="~/accordionTheme.css">
+
+{% if accordionItemsQuery.results.entities.size > 0 %}
+<div class="col-sm-12">
+    {% for item in accordionItemsQuery.results.entities limit:count %}
+    <div class="accordion" id="{{ item.ktcs_accordionitemid }}">
+        <button class="accordion-toggle" id="{{ item.ktcs_accordionitemid }}-button">
+            {{ item.ktcs_accordionitemheading }}
+        </button>
+        <div class="accordion-content" id="{{ item.ktcs_accordionitemid }}-content">
+            {{ item.ktcs_accordionitembody }}
+        </div>
+    </div>
+    <script>
+        document.getElementById("{{ item.ktcs_accordionitemid }}-button").addEventListener("click", function() {
+            var accordionContent = document.getElementById("{{ item.ktcs_accordionitemid }}-content");
+            if (accordionContent.classList.contains("active")) {
+                accordionContent.classList.remove("active");
+            } else {
+                accordionContent.classList.add("active");
+            }
+        });
+    </script>
+    {% endfor %}
+    {% else %}
+    <div>No items found</div>
+</div>
+{% endif %}
+
+
+
+
+{% manifest %}
+{
+    "type": "Functional",
+    "displayName": "dataverse-accordion",
+    "description": "This component displays data in multiple accordion elements",
+    "tables": ["ktcs_accordionitem"],
+    "params": [
+        {
+            "id": "count",
+            "displayName": "Count",
+            "description": "Number of items"
+        },
+        {
+            
+        }
+    ]
+}
+{% endmanifest %}
