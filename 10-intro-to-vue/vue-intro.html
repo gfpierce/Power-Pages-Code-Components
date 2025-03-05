@@ -1,0 +1,83 @@
+{% manifest %} 
+{ 
+  "type": "Functional", 
+  "displayName": "vue-intro", 
+  "description": "This component displays data in an individual accordion element", 
+  "tables": [""], 
+  "params": [ 
+    { 
+      "id": "liquidVar", 
+      "displayName": "Liquid Variable",
+      "description": "The liquid variable to display" 
+    } 
+  ] 
+} 
+{% endmanifest %}
+
+
+<style>
+    .whiteBG {
+      background-color: white;
+    }
+    .greenBG {
+      background-color: aquamarine;
+    }
+  </style>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script type="module">
+  const app = Vue.createApp({
+    setup() {
+      const counter = Vue.reactive({ count: 0 });
+      const message = Vue.ref("Hello Vue!");
+      const divStyle = Vue.ref("whiteBG");
+      const doubled = Vue.computed(() => {
+        return counter.count * 2;
+      });
+
+      function increment() {
+        counter.count++;
+      }
+      function decrement() {
+        counter.count--;
+      }
+
+      function changeBGColor() {
+        console.log("changing");
+        if (document.getElementById("background").classList.contains("whiteBG")) {
+          divStyle.value = "greenBG";
+          console.log("green");
+        } else {
+          divStyle.value = "whiteBG";
+          console.log("white");
+        }
+      }
+
+      return {
+        increment,
+        decrement,
+        changeBGColor,
+        divStyle,
+        counter,
+        message,
+        doubled
+      };
+    },
+    delimiters: ["${", "}"],
+  });
+
+  app.mount("#app");
+</script>
+
+
+<div id="app">
+  <div v-bind:class="divStyle" id="background">
+    <h1>${message}</h1>
+    <button type="button" v-on:click="decrement">Decrement</button>
+    <button type="button" v-on:click="increment">Increment</button>
+    <p>Count: ${counter.count}</p>
+    <p>Doubled: ${counter.count * 2}</p>
+    <p>Doubled (computed): ${doubled}</p>
+    <button type="button" v-on:click="changeBGColor">Change Background Color</button>
+  </div>
+</div>

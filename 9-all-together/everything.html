@@ -1,7 +1,7 @@
 {% manifest %}
 {
     "type": "Functional",
-    "displayName": "dataverse-accordion",
+    "displayName": "all-accordion",
     "description": "This component displays data in multiple accordion elements",
     "tables": ["ktcs_accordionitem"],
     "params": [
@@ -26,29 +26,20 @@
 </fetch>
 {% endfetchxml %}
 
-<link rel="stylesheet" href="~/accordionTheme.css">
+<link rel="stylesheet" href="~/accordionTheme2.css">
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 {% if accordionItemsQuery.results.entities.size > 0 %}
 <div class="col-sm-12">
     {% for item in accordionItemsQuery.results.entities %}
-    <div class="accordion" id="{{ item.ktcs_accordionitemid }}">
-        <button class="accordion-toggle" id="{{ item.ktcs_accordionitemid }}-button">
+    <div class="accordion" id="{{ item.ktcs_accordionitemid }}" x-data="{ open: false }">
+        <button x-on:click="open = !open" class="accordion-toggle" id="{{ item.ktcs_accordionitemid }}-button">
             {{ item.ktcs_accordionitemheading }}
         </button>
-        <div class="accordion-content" id="{{ item.ktcs_accordionitemid }}-content">
+        <div class="accordion-content" x-show="open" x-transition id="{{ item.ktcs_accordionitemid }}-content">
             {{ item.ktcs_accordionitembody }}
         </div>
     </div>
-    <script>
-        document.getElementById("{{ item.ktcs_accordionitemid }}-button").addEventListener("click", function() {
-            var accordionContent = document.getElementById("{{ item.ktcs_accordionitemid }}-content");
-            if (accordionContent.classList.contains("active")) {
-                accordionContent.classList.remove("active");
-            } else {
-                accordionContent.classList.add("active");
-            }
-        });
-    </script>
     {% endfor %}
     {% else %}
     <div>No items found</div>

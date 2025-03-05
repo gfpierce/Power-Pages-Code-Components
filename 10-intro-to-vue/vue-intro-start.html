@@ -1,0 +1,75 @@
+{% manifest %} 
+{ 
+  "type": "Functional", 
+  "displayName": "vue-intro", 
+  "description": "This component displays data in an individual accordion element", 
+  "tables": [""], 
+  "params": [ 
+    { 
+      "id": "liquidVar", 
+      "displayName": "Liquid Variable",
+      "description": "The liquid variable to display" 
+    } 
+  ] 
+} 
+{% endmanifest %}
+
+<style>
+  .whiteBG {
+    background-color: white;
+  }
+  .greenBG {
+    background-color: aquamarine;
+  }
+</style>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script type="module">
+  const app = Vue.createApp({
+    setup() {
+
+      function increment() {
+        counter.count++;
+      }
+      function decrement() {
+        counter.count--;
+      }
+
+      function changeBGColor() {
+        console.log("changing");
+        if (
+          document.getElementById("background").classList.contains("whiteBG")
+        ) {
+          divStyle.value = "greenBG";
+          console.log("green");
+        } else {
+          divStyle.value = "whiteBG";
+          console.log("white");
+        }
+      }
+
+      return {
+        increment,
+        decrement,
+        changeBGColor,
+        divStyle,
+        counter,
+        message,
+      };
+    },
+    delimiters: ["${", "}"],
+  });
+
+  app.mount("#app");
+</script>
+
+<div id="app">
+  <div id="background">
+    <h1>${message}</h1>
+    <button type="button">Decrement</button>
+    <button type="button">Increment</button>
+    <p>Count: </p>
+    <p>Doubled: </p>
+    <button type="button">Change Background Color</button>
+  </div>
+</div>
