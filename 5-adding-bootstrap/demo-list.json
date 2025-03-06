@@ -1,0 +1,14 @@
+{
+    "accordionItems": [
+        {
+            "accordionId": "acc1",
+            "accordionHeading": "Heading 1",
+            "accordionBody": "Content 1"
+        },
+        {
+            "accordionId": "acc2",
+            "accordionHeading": "Heading 2",
+            "accordionBody": "Content 2"
+        }
+    ]
+}
